@@ -13,3 +13,13 @@ export function getAppointmentsForDay(state, day) {
 
   return dayAppointments;
 }
+
+export function getInterview(state, interview) {
+  if (interview !== null) {
+    return {
+      student: interview.student,
+      interviewer: state.interviewers[interview.interviewer],
+    };
+  }
+  return null;
+}
