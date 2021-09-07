@@ -5,6 +5,7 @@ export default function useVisualMode(initial) {
 
   function transition(newMode, replace = false) {
     const stack = [...history];
+    setMode(newMode);
 
     if (replace) {
       stack.pop();
@@ -12,18 +13,16 @@ export default function useVisualMode(initial) {
 
     stack.push(newMode);
     setHistory(stack);
-    setMode(newMode);
   }
 
   function back() {
-    //Prevent back is there is no history
+    //Prevent back if there is no history
     if (history.length > 1){
       const stack = [...history]
       stack.pop()
       setHistory(stack)
       setMode(stack[stack.length -1]);
     }
-
   }
 
   return { mode, transition, back };
