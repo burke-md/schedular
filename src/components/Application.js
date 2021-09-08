@@ -1,6 +1,5 @@
 import React from "react";
 
-
 import "components/Application.scss";
 import DayList from "components/DayList";
 import Appointment from "components/Appointment";
@@ -12,30 +11,27 @@ import {
 } from "helpers/selectors";
 
 export default function Application(props) {
+  //Destructure functions from Obj of funcs
+  const { state, setDay, bookInterview, cancelInterview } =
+    useApplicationData();
 
-const {
-  state,
-  setDay,
-  bookInterview,
-  cancelInterview
-} = useApplicationData();
+  const interviewers = getInterviewersForDay(state, state.day);
 
-const interviewers = getInterviewersForDay(state, state.day);
-
-const parsedAppointments = getAppointmentsForDay(state, state.day).map(
-  appointment => {
-    return (
-      <Appointment
-      key={appointment.id}
-      {...appointment}
-      interview={getInterview(state, appointment.interview)}
-      interviewers={interviewers}
-      bookInterview={bookInterview}
-      cancelInterview={cancelInterview}
-      />
-    )
-  }
-);
+  const parsedAppointments = getAppointmentsForDay(state, state.day).map(
+    (appointment) => {
+      return (
+        //Render components & pass appropriate props
+        <Appointment
+          key={appointment.id}
+          {...appointment}
+          interview={getInterview(state, appointment.interview)}
+          interviewers={interviewers}
+          bookInterview={bookInterview}
+          cancelInterview={cancelInterview}
+        />
+      );
+    }
+  );
   return (
     <main className="layout">
       <section className="sidebar">

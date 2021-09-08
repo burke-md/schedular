@@ -4,7 +4,7 @@ import { render, cleanup } from "@testing-library/react";
 
 import Appointment from "components/Appointment";
 
-afterEach(cleanup)
+afterEach(cleanup);
 
 describe("Appointment", () => {
   it("renders without crashing", () => {

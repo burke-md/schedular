@@ -1,32 +1,28 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import InterviewerListItem from "components/InterviewerListItem";
 import "components/InterviewerList.scss";
 
-
 export default function InterviewerList(props) {
-  //used to export DayList
-  const interviewerMap = props.interviewers.map(interviewer => {
+  //Iterate through array and return new component for each array element.
+  const interviewerMap = props.interviewers.map((interviewer) => {
     return (
-      
       <InterviewerListItem
         key={interviewer.id}
         name={interviewer.name}
-        avatar ={interviewer.avatar}
+        avatar={interviewer.avatar}
         selected={interviewer.id === props.interviewer}
-        setInterviewer={event => props.onChange(interviewer.id)}
+        setInterviewer={(event) => props.onChange(interviewer.id)}
       />
     );
   });
   return (
-
     <section className="interviewers">
-    <h4 className="interviewers__header text--light">Interviewer</h4>
-    <ul className="interviewers__list">{interviewerMap}</ul>
+      <h4 className="interviewers__header text--light">Interviewer</h4>
+      <ul className="interviewers__list">{interviewerMap}</ul>
     </section>
-
   );
 }
 InterviewerList.propTypes = {
-  interviewers: PropTypes.array.isRequired
-}
+  interviewers: PropTypes.array.isRequired,
+};

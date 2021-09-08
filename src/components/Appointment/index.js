@@ -25,6 +25,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  //Update mode as async functions are called.
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -42,6 +43,7 @@ export default function Appointment(props) {
       });
   }
 
+  //Update mode as async functions are called.
   function deleting() {
     transition(DELETE, true);
     props
@@ -56,8 +58,8 @@ export default function Appointment(props) {
 
   return (
     <article className="appointment">
+      {/* Render correct component w/ appropriate props based on mode. */}
       <Header time={props.time} />
-
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && (
         <Show
@@ -66,14 +68,15 @@ export default function Appointment(props) {
           onEdit={() => transition(EDIT)}
           onDelete={() => transition(CONFIRM)}
         />
-        
       )}
       {mode === CREATE && (
         <Form interviewers={props.interviewers} onSave={save} onCancel={back} />
       )}
       {mode === SAVING && <Status message={"Saving"} />}
       {mode === DELETE && <Status message={"Deleting"} />}
-      {mode === CONFIRM && <Confirm onCancel={back} onConfirm={() => deleting(props.id)} />}
+      {mode === CONFIRM && (
+        <Confirm onCancel={back} onConfirm={() => deleting(props.id)} />
+      )}
       {mode === EDIT && (
         <Form
           name={props.interview.student}
