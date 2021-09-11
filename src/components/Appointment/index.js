@@ -55,6 +55,14 @@ export default function Appointment(props) {
         transition(ERROR_DELETE, true);
       });
   }
+  //Prevent edit error for no instructor
+  function checkInterviewer(interviewer) {
+    if (interviewer) {
+      return props.interview.interviewer.id;
+    }
+
+    return null;
+  }
 
   return (
     <article className="appointment">
@@ -80,7 +88,7 @@ export default function Appointment(props) {
       {mode === EDIT && (
         <Form
           name={props.interview.student}
-          interviewer={props.interview.interviewer.id}
+          interviewer={checkInterviewer(props.interview.interviewer)}
           interviewers={props.interviewers}
           onSave={save}
           onCancel={back}
