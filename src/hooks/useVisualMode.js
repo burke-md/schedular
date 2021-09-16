@@ -1,28 +1,30 @@
+
+
 import { useState } from "react";
+
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState([initial]);
 
-  function transition(newMode, replace = false) {
-    const stack = [...history];
-    setMode(newMode);
-
+  function transition(element, replace = false) {
     if (replace) {
-      stack.pop();
+      history.pop();
+      history.push(element);
+      setHistory(history);
+    } else {
+      history.push(element);
+      setHistory(history);
     }
-
-    stack.push(newMode);
-    setHistory(stack);
+    setMode(history[history.length - 1]);
   }
 
   function back() {
-    //Prevent back if there is no history
-    if (history.length > 1){
-      const stack = [...history]
-      stack.pop()
-      setHistory(stack)
-      setMode(stack[stack.length -1]);
+    //Prevent user from going back w/ no history
+    if (history.length > 1) {
+      history.pop();
+      setHistory(history);
     }
+    setMode(history[history.length - 1]);
   }
 
   return { mode, transition, back };

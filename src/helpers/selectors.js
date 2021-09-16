@@ -10,7 +10,6 @@ export function getAppointmentsForDay(state, day) {
       });
     }
   });
-
   return dayAppointments;
 }
 
@@ -24,7 +23,7 @@ export function getInterview(state, interview) {
   return null;
 }
 
-
+//Returns array of interviewers for the day
 export function getInterviewersForDay(state, day) {
   const dayFound = state.days.find(eachDay => eachDay.name === day);
   if(dayFound) {
@@ -33,7 +32,5 @@ export function getInterviewersForDay(state, day) {
   
     return interviewersForDay;
   }
-
-
   return [];
 }
